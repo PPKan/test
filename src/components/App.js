@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
-import '../css/app.scss'
+import '../css/app.scss';
+import { v4 as uuidv4 } from 'uuid';
 
-export const ThemeContext = React.createContext();
+
+export const RecipeContext = React.createContext()
+const LOCAL_STORAGE_KEY = 'cookingWithReact.recipes'
 
 function App() {
+
+  const [recipes, setRecipes] = useState(sampleRecipes)
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes))
+  }, [recipes])
+
+  const recipeContextValue = {
+    handleRecipeAdd: handleRecipeAdd,
+    handleRecipeDelete: handleRecipeDelete
+  }
+
   return (
-    <>
-      <RecipeList recipes={sampleRecipes}/>
-    </>
+    <RecipeContext.Provider value={recipeContextValue}>
+      <RecipeList recipes={recipes} />
+    </RecipeContext.Provider>
   );
+
+  function handleRecipeAdd() {
+    const newRecipe = {
+      id: uuidv4(),
+      name: 'New',
+      servings: 1,
+      cookTime: '1:00',
+      instructions: 'Indtr.',
+      ingredients: [
+        {
+          id: uuidv4(), name: 'Name', amout: '1 Tbs'
+        }
+      ]
+    }
+
+    setRecipes([...recipes, newRecipe])
+  }
+
+  function handleRecipeDelete(id) {
+    setRecipes(recipes.filter(recipe => recipe.id !== id))
+  }
 }
+
 
 const sampleRecipes = [
   {
@@ -24,7 +61,7 @@ const sampleRecipes = [
         id: 1,
         name: 'Chicken',
         amount: '2 Pounds'
-      }, 
+      },
       {
         id: 2,
         name: 'Salt',
@@ -43,7 +80,7 @@ const sampleRecipes = [
         id: 1,
         name: 'Pork',
         amount: '3 Pounds'
-      }, 
+      },
       {
         id: 2,
         name: 'Paprika',
