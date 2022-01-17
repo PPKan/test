@@ -1,12 +1,16 @@
 @import-normalize;
-@import 'font.css';
-@import 'recipe-list.css';
-@import 'buttons.css';
-@import 'recipe.css';
-@import 'ingredient-list.css';
+@import "font.css";
+@import "recipe-list.css";
+@import "buttons.css";
+@import "recipe.css";
+@import "ingredient-list.css";
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   font-family: Gotham Rounded, sans-serif;
 }
 
