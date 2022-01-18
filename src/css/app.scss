@@ -4,6 +4,7 @@
 @import "buttons.css";
 @import "recipe.css";
 @import "ingredient-list.css";
+@import "recipe-edit.css";
 // @tailwind base;
 // @tailwind components;
 // @tailwind utilities;
@@ -12,6 +13,7 @@
 *::before,
 *::after {
   font-family: Gotham Rounded, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
